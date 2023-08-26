@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { IDecodedToken } from '../models/interfaces';
+import IDecodedToken from '../models/interfaces/IDecodedToken';
 
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
     // Extract the token from the header
