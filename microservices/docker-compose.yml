@@ -9,9 +9,6 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=secret
   test-mongodb:
     image: mongo:latest
     restart: always
@@ -19,9 +16,6 @@ services:
       - "27017:27017"
     volumes:
       - test-mongo-data:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=secret
   
   user-service:
     build:
@@ -29,7 +23,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - MONGO_URI=mongodb://admin:secret@mongodb:27017/admin
+      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/admin
     depends_on:
       - mongodb
   
