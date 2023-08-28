@@ -1,8 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import IDecodedToken from '../models/interfaces/IDecodedToken';
+import ICustomRequest from '../models/interfaces/ICustomRequest';
 
-export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateJWT = (req: ICustomRequest, res: Response, next: NextFunction) => {
     // Extract the token from the header
     const authHeader = req.headers.authorization;
 
