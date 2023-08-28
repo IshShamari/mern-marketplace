@@ -14,7 +14,7 @@ console.log(MONGO_URI);
 mongoose.connect(MONGO_URI, {family: 4}).then(() => {
     console.log('Connected to MongoDB');
 
-    mongoose.connection.useDb('user');
+    mongoose.connection.useDb('users');
 
     app.listen(PORT, () => {
         console.log(`User Service is running on port ${PORT}`);
