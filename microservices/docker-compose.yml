@@ -22,8 +22,6 @@ services:
       context: ./user
     ports:
       - "3001:3001"
-    environment:
-      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/admin
     depends_on:
       - mongodb
   
