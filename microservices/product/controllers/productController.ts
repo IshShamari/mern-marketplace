@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 import Product from "../models/Product";
+import { Types } from 'mongoose';
 
 export const getAllProducts = async (req: Request, res: Response) => {
     try {
         const products = await Product.find();
-        res.json(products);
+        res.status(200).json(products);
     } catch (err) {
         res.status(500).json({message: 'Server Error'});
     }
@@ -12,10 +13,14 @@ export const getAllProducts = async (req: Request, res: Response) => {
 
 export const getProductById = async (req: Request, res: Response) => {
     try {
+        if (!Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({message: 'Invalid Product ID format'})
+        }
         const product = await Product.findById(req.params.id);
-        if (!product) return res.status(404).json({message: 'Product not found'});
-        res.json(product);
+        if (!product || product == null) return res.status(404).json({message: 'Product not found'});
+        res.status(200).json(product);
     } catch (err) {
+        console.error(err);
         res.status(500).json({message: 'Server Error'});
     }
 }
@@ -25,6 +30,9 @@ export const createProduct = async (req: Request, res: Response) => {
         // Create logic
         const { name, price, stock, description, imageUrl} = req.body;
 
+        if (name == undefined || !name || price == undefined || !price) {
+            return res.status(400).json({message: 'Invalid request'})
+        }
         // Create a new product (duplicates are acceptable)
         let newProduct = new Product({
             name,
@@ -47,11 +55,16 @@ export const updateProduct = async (req: Request, res: Response) => {
         const productId = req.params.id;
         const { name, price, stock, description, imageUrl} = req.body;
 
+        
         if (!productId) {
             return res.status(400).json({message: 'Product ID was not supplied'});
         }
 
-        if (!name && !price && !stock && !description && !imageUrl) {
+        if (!Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({message: 'Invalid Product ID format'})
+        }
+
+        if (name == undefined && !price == undefined && !stock == undefined && !description == undefined && !imageUrl == undefined) {
             return res.status(400).json({mesage: 'No updated values were provides'});
         }
         // Check if product exists
@@ -80,9 +93,12 @@ export const updateProduct = async (req: Request, res: Response) => {
 export const deleteProduct = async (req: Request, res: Response) => {
     try {
         const productId = req.params.id;
-
         if (!productId) {
             return res.status(400).json({message: 'Product ID was not supplied'});
+        }
+
+        if (!Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({message: 'Invalid Product ID format'})
         }
 
         // Check if product exists
