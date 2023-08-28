@@ -4,7 +4,7 @@ import Order from "../models/Order";
 export const getAllOrders = async (req: Request, res: Response) => {
     try {
         const orders = await Order.find().populate('user').populate('orderItems.product');
-        res.json(orders);
+        res.status(200).json(orders);
     } catch (err) {
         res.status(500).json({message: 'Server Error'});
     }
@@ -14,8 +14,9 @@ export const getOrderById = async (req: Request, res: Response) => {
     try {
         const order = await Order.findById(req.params.id).populate('user').populate('orderItems.product');
         if (!order) return res.status(404).json({message: 'Order not found'});
-        res.json(order);
+        res.status(200).json(order);
     } catch (err) {
+        console.error(err)
         res.status(500).json({message: 'Server Error'});
     }
 }
@@ -24,6 +25,10 @@ export const createOrder = async (req: Request, res: Response) => {
     try {
         // Create logic
         const { user, orderItems, status, orderDate, deliveryDate } = req.body;
+
+        if (user == undefined || orderItems == undefined || (orderItems && orderItems.length <= 0)) {
+            return res.status(400).json({message: 'Invalid request'})
+        }
 
         // Create a new order (duplicates are acceptable)
         let newOrder = new Order({
@@ -36,8 +41,9 @@ export const createOrder = async (req: Request, res: Response) => {
 
         newOrder = await newOrder.save();
 
-        res.status(201).json(newOrder);
+        res.status(201).json({order: newOrder});
     } catch (err) {
+        console.error(err);
         res.status(500).json({message: 'Server error'})
     }
 }
@@ -64,7 +70,7 @@ export const updateOrder = async (req: Request, res: Response) => {
         // Update values if provided
         if (user) order.user = user;
         if (orderItems) order.orderItems = orderItems;
-        if (status) order.status = status;
+        if (status) order.status = status.toLowerCase();
         if (orderDate) order.orderDate = orderDate;
         if (deliveryDate) order.deliveryDate = deliveryDate;
 
@@ -73,6 +79,7 @@ export const updateOrder = async (req: Request, res: Response) => {
         res.status(200).json({message: 'Order was updated successfully', order})
 
     } catch (err) {
+        console.error(err);
         res.status(500).json({message: 'Server error'})
     }
 }

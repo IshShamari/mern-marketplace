@@ -112,7 +112,4 @@
   "exclude": [
     "node_modules"
   ],
-  "files": [
-    "../shared/types.d.ts"
-  ]
 }
