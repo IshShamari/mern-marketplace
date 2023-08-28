@@ -1,0 +1,47 @@
+
+version: '3.1'
+
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+  test-mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - test-mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+  
+  user-service:
+    build:
+      context: ./user
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=mongodb://admin:secret@mongodb:27017/admin
+    depends_on:
+      - mongodb
+  
+  test-user-service:
+    build:
+      context: ./user
+    command: npm run test
+    environment:
+      - NODE_ENV=test
+    depends_on:
+      - test-mongodb
+
+volumes:
+  mongo-data:
+  test-mongo-data:
