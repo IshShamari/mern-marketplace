@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticateJWT } from 'shared/middlewares/authMiddleware';
+import { authenticateJWT } from '@shamariishmael/shared';
 import * as userController from '../controllers/userControllers';
 
 const router = express.Router();
