@@ -4,7 +4,6 @@ import { IOrderDocument } from './interfaces';
 const orderItemSchema = new Schema({
     product: {
         type: Schema.Types.ObjectId,
-        ref: 'Product',
         required: true
     },
     quantity: {
@@ -15,8 +14,7 @@ const orderItemSchema = new Schema({
 
 const orderSchema = new Schema({
     user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        type: Schema.ObjectId,
         required: true
     },
     orderItems: [orderItemSchema],

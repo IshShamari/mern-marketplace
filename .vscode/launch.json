@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "node-terminal",
+            "name": "Run Script: start",
+            "request": "launch",
+            "command": "npm run start",
+            "cwd": "${workspaceFolder}/microservices/product"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run Script: order tests",
+            "request": "launch",
+            "command": "npm run test",
+            "cwd": "${workspaceFolder}/microservices/order"
+        },
+    ]
+}
