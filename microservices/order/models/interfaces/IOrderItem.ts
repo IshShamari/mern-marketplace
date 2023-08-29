@@ -1,4 +1,4 @@
-import { IProduct } from '../../../product/models/interfaces';
+import { IProduct } from '@shamariishmael/shared';
 interface IOrderItem {
     product: IProduct,
     quantity: number
