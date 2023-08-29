@@ -2,10 +2,13 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import orderRoutes from './routes/orderRoutes';
 import { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
+
+app.use(cors())
 
 app.use(express.json());
 
