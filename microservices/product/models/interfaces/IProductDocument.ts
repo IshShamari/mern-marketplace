@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { IProduct } from '.';
+import { IProduct } from '@shamariishmael/shared';
 
 interface IProductDocument extends IProduct, Document {}
 

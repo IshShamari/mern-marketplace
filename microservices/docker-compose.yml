@@ -24,7 +24,6 @@ services:
       - "3001:3001"
     depends_on:
       - mongodb
-  
   test-user-service:
     build:
       context: ./user
@@ -41,10 +40,25 @@ services:
       - "3003:3003"
     depends_on:
       - mongodb
-  
   test-order-service:
     build:
       context: ./order
+    command: npm run test
+    environment:
+      - NODE_ENV=test
+    depends_on:
+      - test-mongodb
+
+  product-service:
+    build:
+      context: ./product
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mongodb
+  test-product-service:
+    build:
+      context: ./product
     command: npm run test
     environment:
       - NODE_ENV=test
