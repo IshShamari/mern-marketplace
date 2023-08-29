@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 let token: any;
 
 beforeAll(async () => {
-    const MONGO_URI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost:27017' : process.env.MONGO_URI || '';
+    const MONGO_URI = process.env.NODE_ENV === 'test' ? 'mongodb://test-mongodb:27017/' : process.env.MONGO_URI || '';
     await mongoose.connect(MONGO_URI);
 
     
@@ -61,7 +61,7 @@ describe('User Retrieval', () => {
 
     it('should not fetch a user with non-existent id', async () => {
         await mongoose.connection.collection('users').deleteMany({})
-        
+
         const res = await request(app).get(`/api/users/me`).set('Authorization', `Bearer ${token}`);
         expect(res.statusCode).toEqual(404);
         expect(res.body).toEqual({message: 'User does not exist'});

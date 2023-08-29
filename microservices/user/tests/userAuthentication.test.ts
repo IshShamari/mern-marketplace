@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
 beforeAll(async () => {
-    const MONGO_URI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost:27017' : process.env.MONGO_URI || '';
+    const MONGO_URI = process.env.NODE_ENV === 'test' ? 'mongodb://test-mongodb:27017/' : process.env.MONGO_URI || '';
     await mongoose.connect(MONGO_URI);
 
     const hashedPassword = await bcrypt.hash('password123', 12);
