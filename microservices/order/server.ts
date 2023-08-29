@@ -6,7 +6,7 @@ dotenv.config();
 
 
 const PORT = process.env.ORDER_SERVICE_PORT || 3003;
-const MONGO_URI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost:27017/' : process.env.MONGO_URI || '';
+const MONGO_URI = process.env.NODE_ENV === 'test' ? 'mongodb://test-mongodb:27017/' : process.env.MONGO_URI || '';
 
 mongoose.connect(MONGO_URI, {family: 4}).then(() => {
     console.log('Connected to MongoDB');
