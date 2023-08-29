@@ -1,4 +1,4 @@
-import { IUser } from '../../../user/models/interfaces';
+import { IUser } from '@shamariishmael/shared';
 import { IOrderItem } from '.';
 import { Status } from '../enums';
 

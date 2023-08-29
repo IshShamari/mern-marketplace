@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 import jwt, { Secret } from 'jsonwebtoken';
 
 beforeAll(async () => {
-    const MONGO_URI = 'mongodb://localhost:27017'
+    const MONGO_URI = process.env.NODE_ENV === 'test' ? 'mongodb://test-mongodb:27017/' : process.env.MONGO_URI || '';
     await mongoose.connect(MONGO_URI);
 })
 

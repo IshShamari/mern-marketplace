@@ -34,6 +34,23 @@ services:
     depends_on:
       - test-mongodb
 
+  order-service:
+    build:
+      context: ./order
+    ports:
+      - "3003:3003"
+    depends_on:
+      - mongodb
+  
+  test-order-service:
+    build:
+      context: ./order
+    command: npm run test
+    environment:
+      - NODE_ENV=test
+    depends_on:
+      - test-mongodb
+
 volumes:
   mongo-data:
   test-mongo-data:
