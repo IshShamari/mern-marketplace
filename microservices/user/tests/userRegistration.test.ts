@@ -3,7 +3,7 @@ import app from '../app';
 import mongoose from 'mongoose';
 
 beforeAll(async () => {
-    const MONGO_URI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost:27017' : process.env.MONGO_URI || '';
+    const MONGO_URI = process.env.NODE_ENV === 'test' ? 'mongodb://test-mongodb:27017/' : process.env.MONGO_URI || '';
     await mongoose.connect(MONGO_URI);
 });
 
