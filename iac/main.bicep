@@ -19,11 +19,11 @@ param collection2Name string = 'products'
 param collection3Name string = 'orders'
 
 @description('The container registry username')
-param containerregistryusername string
+param containerRegistryUsername string
 
 @description('The container registry password')
 @secure()
-param containerregistrypassword string
+param containerRegistryPassword string
 
 module rgModule './modules/rg.bicep' = {
   name: 'rgmernmarketplace'
@@ -33,8 +33,8 @@ module rgModule './modules/rg.bicep' = {
     collection1Name: collection1Name
     collection2Name: collection2Name
     collection3Name: collection3Name
-    containerregistrypassword: containerregistrypassword
-    containerregistryusername: containerregistryusername
+    containerRegistryUsername: containerRegistryUsername
+    containerRegistryPassword: containerRegistryPassword
   }
   scope: subscription(subscriptionId)
 }

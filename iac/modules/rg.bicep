@@ -21,11 +21,11 @@ param collection2Name string
 param collection3Name string
 
 @description('The container registry username')
-param containerregistryusername string
+param containerRegistryUsername string
 
 @description('The container registry password')
 @secure()
-param containerregistrypassword string
+param containerRegistryPassword string
 
 resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   name: rgName
@@ -58,8 +58,8 @@ module acaModule './aca.bicep' = {
   scope: rg
   params: {
     location: location
-    containerregistrypassword: containerregistrypassword
-    containerregistryusername: containerregistryusername
+    containerRegistryUsername: containerRegistryUsername
+    containerRegistryPassword: containerRegistryPassword
   }
 }
 
