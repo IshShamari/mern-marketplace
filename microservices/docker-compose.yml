@@ -18,6 +18,8 @@ services:
       - test-mongo-data:/data/db
   
   user-service:
+    platform: linux/amd64
+    image: acrmernmarketplace.azurecr.io/user-service
     build:
       context: ./user
     ports:
@@ -25,6 +27,7 @@ services:
     depends_on:
       - mongodb
   test-user-service:
+    image: acrmernmarketplace.azurecr.io/test-user-service
     build:
       context: ./user
     command: npm run test
@@ -34,6 +37,8 @@ services:
       - test-mongodb
 
   order-service:
+    platform: linux/amd64
+    image: acrmernmarketplace.azurecr.io/order-service
     build:
       context: ./order
     ports:
@@ -41,6 +46,7 @@ services:
     depends_on:
       - mongodb
   test-order-service:
+    image: acrmernmarketplace.azurecr.io/test-order-service
     build:
       context: ./order
     command: npm run test
@@ -50,6 +56,8 @@ services:
       - test-mongodb
 
   product-service:
+    platform: linux/amd64
+    image: acrmernmarketplace.azurecr.io/product-service
     build:
       context: ./product
     ports:
@@ -57,6 +65,7 @@ services:
     depends_on:
       - mongodb
   test-product-service:
+    image: acrmernmarketplace.azurecr.io/test-product-service
     build:
       context: ./product
     command: npm run test

@@ -14,7 +14,7 @@ const orderItemSchema = new Schema({
 
 const orderSchema = new Schema({
     user: {
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         required: true
     },
     orderItems: [orderItemSchema],
