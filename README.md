@@ -1,3 +1,5 @@
+# WIP
+This project is still in a work in progress state
 # mern-marketplace
 Monorepository to showcase my ability with MERN and Azure services.
 
