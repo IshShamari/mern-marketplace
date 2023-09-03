@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - cicd # For debugging purposes, TODO: remove when entire cicd pipeline has been completed
+      # - cicd # For debugging purposes, TODO: remove when entire cicd pipeline has been completed
     # paths:
       # - 'iac/**'
 
