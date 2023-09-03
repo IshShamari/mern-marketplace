@@ -9,6 +9,10 @@ on:
     # paths:
       # - 'iac/**'
 
+env:
+  LOCATION: canadacentral
+  ACR_NAME: acrmernmarketplace
+
 permissions:
   id-token: write
   contents: read
@@ -20,3 +24,21 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run Bicep linter
         run: az bicep build --file iac/main.bicep
+  
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: azure/login@v1
+        name: Sign in to Azure
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - uses: azure/arm-deploy@v1
+        name: Run preflight validation
+        with:
+          deploymentName: ${{ github.run_number }}
+          template: ./iac/main.bicep
+          deploymentMode: Validate
+          parameters: location=${{ env.LOCATION }} acrName=${{ env.ACR_NAME}} containerRegistryUsername=${{ secrets.ACR_CLIENT_ID }} containerRegistryPassword=${{ secrets.ACR_CLIENT_SECRET }}
