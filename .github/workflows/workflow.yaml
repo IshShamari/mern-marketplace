@@ -38,6 +38,7 @@ jobs:
       - uses: azure/arm-deploy@v1
         name: Run preflight validation
         with:
+          scope: subscription
           deploymentName: ${{ github.run_number }}
           template: ./iac/main.bicep
           deploymentMode: Validate
