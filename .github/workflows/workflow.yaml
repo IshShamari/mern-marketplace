@@ -39,6 +39,7 @@ jobs:
         name: Run preflight validation
         with:
           scope: subscription
+          region: canadacentral
           deploymentName: ${{ github.run_number }}
           template: ./iac/main.bicep
           deploymentMode: Validate
