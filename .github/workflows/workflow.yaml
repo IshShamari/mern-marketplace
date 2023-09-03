@@ -1,0 +1,22 @@
+name: deploy-mern-marketplace
+concurrency: mern-marketplace
+
+on:
+  push:
+    branches:
+      - main
+      - cicd # For debugging purposes, TODO: remove when entire cicd pipeline has been completed
+    # paths:
+      # - 'iac/**'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Bicep linter
+        run: az bicep build --file iac/main.bicep
